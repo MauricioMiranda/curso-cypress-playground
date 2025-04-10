@@ -14,12 +14,12 @@ describe('Cypress Playground', () => {
       '#success', 
       "You've been successfully subscribed to our newsletter.")
       .should('be.visible')
-  });
+  })
 
   it('types in a input which "signs" a form, then asserts it is signed', () => {
     cy.get('#signature-textarea').type('Maurício Miranda')
     cy.contains('#signature', 'Maurício Miranda').should('be.visible')
-  });
+  })
 
   it('types in the signature field, checks the checkbox to see the preview, then unchecks it', () => {
     cy.get('#signature-textarea-with-checkbox').type('Maurício Miranda')
@@ -37,5 +37,23 @@ describe('Cypress Playground', () => {
     cy.get('#on').check()
     cy.contains('#on-off', 'ON').should('be.visible')
     cy.contains('#on-off', 'OFF').should('not.exist')
-  });
+  })
+
+  it('selects a type via the dropdown field and asserts on the selection', () => {
+
+    cy.contains('p', "You haven't selected a type yet.").should('be.visible')
+
+    cy.get('#selection-type').select(3)
+
+    cy.contains('p', "You've selected: VIP").should('be.visible')
+
+  })
+
+  it('select multiple fruits via dropdown field and asserts on the selection', () => {
+    cy.contains('p', "You haven't selected any fruit yet.").should('be.visible')
+
+    cy.get('#fruit').select(['apple','banana', 'cherry'])
+
+    cy.contains('p', "You've selected the following fruits: apple, banana, cherry").should('be.visible')
+  })
 })
